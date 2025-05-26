@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecionando...</title>
+    <script>
+      async function redirect() {
+        const path = window.location.pathname.replace(/^\/encurtador\//, '');
+        const response = await fetch('links.json');
+        const links = await response.json();
+        const url = links[path];
+        if (url) {
+          window.location.href = url;
+        } else {
+          document.body.innerText = 'Link não encontrado.';
+        }
+      }
+      redirect();
+    </script>
+  </head>
+  <body>
+    Redirecionando...
+  </body>
+</html>
