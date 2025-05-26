@@ -1,27 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Redirecionando...</title>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const path = window.location.pathname.split("/").pop();
-      fetch("links.json")
-        .then((response) => response.json())
-        .then((links) => {
-          if (links[path]) {
-            window.location.href = links[path];
-          } else {
-            document.body.innerHTML = "<h1>Link não encontrado 😕</h1>";
-          }
-        })
-        .catch(() => {
-          document.body.innerHTML = "<h1>Erro ao carregar os links</h1>";
-        });
-    });
-  </script>
-</head>
-<body>
-  <p>Redirecionando...</p>
-</body>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecionando...</title>
+    <script>
+      async function redirect() {
+        const path = window.location.pathname.replace(/^\/encurtador\//, '');
+        const response = await fetch('links.json');
+        const links = await response.json();
+        const url = links[path];
+        if (url) {
+          window.location.href = url;
+        } else {
+          document.body.innerText = 'Link não encontrado.';
+        }
+      }
+      redirect();
+    </script>
+  </head>
+  <body>
+    Redirecionando...
+  </body>
 </html>
